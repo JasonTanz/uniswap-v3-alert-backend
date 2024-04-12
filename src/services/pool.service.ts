@@ -28,6 +28,7 @@ const getAll = async (): Promise<ServiceResponse<TPool[]>> => {
       .populate('token0')
       .populate('token1')
       .populate('transactions')
+      .sort({ createdAt: -1 })
       .exec();
     logger.info('Fetch all pools');
     return [null, pools];

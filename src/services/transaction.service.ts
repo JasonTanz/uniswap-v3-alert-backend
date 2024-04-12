@@ -5,7 +5,16 @@ import { ServiceResponse } from './@types/common';
 // --------------- Get All Transactions
 const getAll = async (): Promise<ServiceResponse<any[]>> => {
   try {
-    const transactions = await Transaction.find().populate('pool').exec();
+    const transactions = await Transaction.find()
+      .populate({
+        path: 'pool',
+        populate: [
+          { path: 'token0', model: 'Token' },
+          { path: 'token1', model: 'Token' },
+        ],
+      })
+      .sort({ timestamp: -1 })
+      .exec();
     logger.info('Fetch all transactions');
     return [null, transactions];
   } catch (error) {
@@ -18,7 +27,13 @@ const getAll = async (): Promise<ServiceResponse<any[]>> => {
 const getByPoolId = async (poolId: string): Promise<ServiceResponse<any>> => {
   try {
     const transactions = await Transaction.findOne({ pool: poolId })
-      .populate('pool')
+      .populate({
+        path: 'pool',
+        populate: [
+          { path: 'token0', model: 'Token' },
+          { path: 'token1', model: 'Token' },
+        ],
+      })
       .exec();
     logger.info('Fetch all transactions by pool id:', poolId);
     return [null, transactions];
@@ -38,7 +53,7 @@ const create = async (payload: any): Promise<any> => {
     logger.info('Transaction created successfully:', newTransaction);
     return [null, newTransaction];
   } catch (error) {
-    logger.error('Error creating pool:', error);
+    logger.error('Error creating transaction:', error);
     return [error, null];
   }
 };
@@ -47,7 +62,13 @@ const create = async (payload: any): Promise<any> => {
 const getById = async (id: string): Promise<ServiceResponse<any>> => {
   try {
     const transaction = await Transaction.findOne({ _id: id })
-      .populate('pool')
+      .populate({
+        path: 'pool',
+        populate: [
+          { path: 'token0', model: 'Token' },
+          { path: 'token1', model: 'Token' },
+        ],
+      })
       .exec();
     logger.info('Fetch transaction by id:', id);
     return [null, transaction];
