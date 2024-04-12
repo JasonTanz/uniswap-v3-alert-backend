@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import logger from '../config/logger';
 import { factory, alchemy } from '../utils/ethersSetup';
 import { isNil } from 'lodash';
@@ -81,22 +82,10 @@ const handlePoolCreate = async ({
   info: any;
   socket: any;
 }): Promise<any> => {
-  console.log('here---------------->');
-  console.log('New Pool Created:');
-  console.log('Token0:', token0);
-  console.log('Token1:', token1);
-  console.log('Fee:', fee);
-  console.log('Tick Spacing:', tickSpacing);
-  console.log('Pool Address:', poolAddress);
-  console.log('Token3:', info);
-
   const token0Metadata: TokenMetadataResponse =
     await alchemy.core.getTokenMetadata(token0);
   const token1Metadata: TokenMetadataResponse =
     await alchemy.core.getTokenMetadata(token1);
-
-  console.log('TOKEN METADATA', token0Metadata);
-  console.log('TOKEN METADATA', token1Metadata);
 
   if (token0Metadata && token1Metadata) {
     const tokenZeroId = await getTokenIdOrCreate(token0, token0Metadata);

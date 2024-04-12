@@ -11,7 +11,7 @@ const create = async (payload: any): Promise<any> => {
     logger.info('Token created successfully:', newToken);
     return [null, newToken];
   } catch (error) {
-    logger.error('Error creating pool:', error);
+    logger.error('Error creating token:', error);
     return [error, null];
   }
 };

@@ -11,7 +11,7 @@ const provider = new ethers.providers.JsonRpcProvider(
 
 const config = {
   apiKey: process.env.ALCHEMY_API_KEY || '',
-  network: Network.ETH_SEPOLIA,
+  network: Network.ETH_MAINNET,
 };
 
 const alchemy = new Alchemy(config);

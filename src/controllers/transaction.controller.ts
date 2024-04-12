@@ -49,7 +49,6 @@ export const getLiveTransactionsEvent = async (socket: any): Promise<any> => {
       return;
     }
 
-    console.log('pools', pools);
     logger.info('Watching live swap event pool');
     for (const pool of pools) {
       await watchPoolSwaps(pool, socket);
@@ -111,12 +110,6 @@ const handleSwapEvent = async ({
   token1,
   socket,
 }: any): Promise<any> => {
-  console.log('Swap Event:');
-  console.log('Sender:', sender);
-  console.log('Recipient:', recipient);
-  console.log('Amount0In:', formatAmount(amount0, 18));
-  console.log('Amount1In:', formatAmount(amount1, 18));
-  console.log('Transaction:', transactionHash);
   try {
     const formattedAmount0 = formatAmount(amount0, token0.decimals || 18);
     const formattedAmount1 = formatAmount(amount1, token1.decimals || 18);
